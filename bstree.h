@@ -2,7 +2,8 @@
 #define BSTREE_H
 
 typedef struct {
-
+	char *key;
+	int value;
 } bstree;
 
 struct bstree *bstree_create(char *key, int value);
