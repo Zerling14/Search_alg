@@ -20,6 +20,6 @@ bstree *bstree_min(bstree *tree);
 
 bstree *bstree_max(bstree *tree);
 
-bstree *bstree_delete(bstree *tree);
+void bstree_delete(bstree *tree);
 
 #endif

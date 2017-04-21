@@ -19,3 +19,18 @@ bstree *bstree_create(char *key, int value)
 	tmp->right_tree = NULL;
 	return tmp;
 }
+
+void bstree_delete(bstree *tree)
+{
+	if (tree == NULL) {
+		return;
+	}
+	if (tree->left_tree != NULL) {
+		bstree_delete(tree->left_tree);
+	}
+	if (tree->right_tree != NULL) {
+		bstree_delete(tree->right_tree);
+	}
+	free(tree->key);
+	free(tree);
+}
