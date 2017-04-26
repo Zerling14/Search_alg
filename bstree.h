@@ -6,8 +6,8 @@
 typedef struct bstree{
 	char *key;
 	int value;
-	struct bstree *left_tree;
-	struct bstree *right_tree;
+	struct bstree *first;
+	struct bstree *second;
 } bstree;
 
 bstree *bstree_create(char *key, int value);
