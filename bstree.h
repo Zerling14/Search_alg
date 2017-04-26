@@ -1,18 +1,25 @@
 #ifndef BSTREE_H
 #define BSTREE_H
 
-typedef struct {
 
+
+typedef struct bstree{
+	char *key;
+	int value;
+	struct bstree *first;
+	struct bstree *second;
 } bstree;
 
-struct bstree *bstree_create(char *key, int value);
+bstree *bstree_create(char *key, int value);
 
 void bstree_add(bstree *tree, char *key, int value);
 
-struct bstree *bstree_lookup(bstree *tree, char *key);
+bstree *bstree_lookup(bstree *tree, char *key);
 
-struct bstree *bstree_min(bstree *tree);
+bstree *bstree_min(bstree *tree);
 
-struct bstree *bstree_max(bstree *tree);
+bstree *bstree_max(bstree *tree);
+
+void bstree_delete(bstree *tree);
 
 #endif
