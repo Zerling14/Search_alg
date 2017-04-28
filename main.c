@@ -74,54 +74,60 @@ int calc_num_word(char *name_file)
 		fscanf(in ,"%s[^\n]", buf);
 		i++;
 	}
+	printf("Num words: %d\n", i);
 	fclose(in);
 	return i;
+}
+
+void bstree_work()
+{
+	//while(1) {
+	system("clear");
+	srand(time(0));
+	//int max_element = 80; //or
+	int num_in_tree = calc_num_word("word.txt");
+	char *num_arr[num_in_tree];
+	//load_rand_num(num_arr, num_in_tree, max_element); // or
+	load_words(num_arr, num_in_tree);
+	
+	heap_make(num_arr, num_in_tree);
+	
+	bstree *test = bstree_create(num_arr[num_in_tree / 2], 1);
+	
+	for (int i = (num_in_tree / 2) - 1; i >= 0; i--) {
+		bstree_add(test, num_arr[i], 1);
+	}
+	for (int i = (num_in_tree / 2) + 1; i < num_in_tree; i++) {
+		bstree_add(test, num_arr[i], 1);
+	}
+	
+	free_rand_num(num_arr, num_in_tree);
+	
+	// int sum_all_node = 0;
+	// char buf[10];
+	// for(int i = 0; i < max_element; i++) {
+		// bstree *result = bstree_lookup(test, itoa(i, buf, 10));
+		// if (result == NULL) {
+			// continue;
+		// }
+		// sum_all_node += result->value;
+	// }
+	// printf("Sum all elements: %d\n", sum_all_node);
+	
+	bstree *min = bstree_min(test);
+	printf("min: %d : %s\n", min->value, min->key);
+	bstree *max = bstree_max(test);
+	printf("max: %d : %s\n", max->value, max->key);
+	
+	//bstree_print_init(test, 30);
+	bstree_delete(test);
+	Sleep(1000);
+	//}
 }
 
 int main()
 {
 	setlocale(0, "");
-	//while(1) {
-		system("clear");
-		srand(time(0));
-		//int max_element = 80; //or
-		int num_in_tree = calc_num_word("word.txt");
-		char *num_arr[num_in_tree];
-		//load_rand_num(num_arr, num_in_tree, max_element); // or
-		load_words(num_arr, num_in_tree);
-		
-		heap_make(num_arr, num_in_tree);
-		
-		bstree *test = bstree_create(num_arr[num_in_tree / 2], 1);
-		
-		for (int i = (num_in_tree / 2) - 1; i >= 0; i--) {
-			bstree_add(test, num_arr[i], 1);
-		}
-		for (int i = (num_in_tree / 2) + 1; i < num_in_tree; i++) {
-			bstree_add(test, num_arr[i], 1);
-		}
-		
-		free_rand_num(num_arr, num_in_tree);
-		
-		// int sum_all_node = 0;
-		// char buf[10];
-		// for(int i = 0; i < max_element; i++) {
-			// bstree *result = bstree_lookup(test, itoa(i, buf, 10));
-			// if (result == NULL) {
-				// continue;
-			// }
-			// sum_all_node += result->value;
-		// }
-		// printf("Sum all elements: %d\n", sum_all_node);
-		
-		bstree *min = bstree_min(test);
-		printf("min: %d : %s\n", min->value, min->key);
-		bstree *max = bstree_max(test);
-		printf("max: %d : %s\n", max->value, max->key);
-		
-		//bstree_print_init(test, 30);
-		bstree_delete(test);
-		Sleep(1000);
-	//}
+	
 	return 0;
 }
