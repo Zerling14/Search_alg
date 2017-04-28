@@ -3,7 +3,8 @@
 #include "hashtab.h"
 #include <stdlib.h>
 #include <time.h>
-#include <windows.h>
+#include <string.h>
+//#include <windows.h>
 #include <locale.h>
 
 void swap (char **a, char **b) {
@@ -39,10 +40,10 @@ void heap_make(char *arr[], int n)
 
 void load_rand_num(char *num_arr[], int num_in_tree, int max_element)
 {
-	char buf[10];
+	//char buf[10];
 	for (int i = 0; i < num_in_tree; i++) {
-			num_arr[i] = calloc(strlen(itoa(rand() % max_element, buf, 10)) + 1, sizeof(char));
-			strcpy(num_arr[i], buf);
+			num_arr[i] = calloc(2 , sizeof(char));
+			strcpy(num_arr[i], (char *)'0' + rand() % 10);
 	}
 }
 void free_rand_num(char *num_arr[], int num_in_tree)
@@ -121,13 +122,39 @@ void bstree_work()
 	
 	//bstree_print_init(test, 30);
 	bstree_delete(test);
-	Sleep(1000);
 	//}
 }
 
 int main()
 {
 	setlocale(0, "");
+	srand(time(0));
+	
+	listnode *node_arr[10];
+	hashtab_init(node_arr);
+	
+	//int max_element = 10; //or
+	//int num_in_tree = 100;
+	//char *num_arr[num_in_tree];
+	//load_rand_num(num_arr, num_in_tree, max_element);
+	hashtab_add(node_arr, "0", 1);
+	hashtab_add(node_arr, "1", 1);
+	hashtab_add(node_arr, "22", 1);
+	printf("\n%p\n", hashtab_lookup(node_arr, "0"));
+	printf("%p\n", hashtab_lookup(node_arr, "1"));
+	printf("%p\n", hashtab_lookup(node_arr, "22"));
+	//for (int i = 0; i < num_in_tree; i++) {
+	//	hashtab_add(&node_arr, num_arr[i], 1);
+	//}
+	
 	
 	return 0;
 }
+
+
+
+
+
+
+
+
