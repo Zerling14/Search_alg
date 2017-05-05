@@ -6,6 +6,15 @@
 #include <string.h>
 //#include <windows.h>
 #include <locale.h>
+#include <sys/time.h>
+#include <stdio.h>
+
+double wtime()
+{
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
+}
 
 void swap (char **a, char **b) {
 	char *tmp = *a;
@@ -86,7 +95,7 @@ void bstree_work()
 	system("clear");
 	srand(time(0));
 	//int max_element = 80; //or
-	int num_in_tree = calc_num_word("word.txt");
+	int num_in_tree = calc_num_word("words.txt");
 	char *num_arr[num_in_tree];
 	//load_rand_num(num_arr, num_in_tree, max_element); // or
 	load_words(num_arr, num_in_tree);
@@ -130,23 +139,47 @@ int main()
 	setlocale(0, "");
 	srand(time(0));
 	
-	listnode *node_arr[10];
+	listnode *node_arr[128];
 	hashtab_init(node_arr);
 	
 	
-	int num_in_tree = calc_num_word("word.txt");
+	int num_in_tree = 50000;//calc_num_word("word.txt");
 	char *num_arr[num_in_tree];
 	load_words(num_arr, num_in_tree);
 	
+	/*
+	heap_make(num_arr, num_in_tree);
+	
+	bstree *test = bstree_create(num_arr[num_in_tree / 2], 1);
+	
 	for (int i = (num_in_tree / 2) - 1; i >= 0; i--) {
+		bstree_add(test, num_arr[i], 1);
+	}
+	for (int i = (num_in_tree / 2) + 1; i < num_in_tree; i++) {
+		bstree_add(test, num_arr[i], 1);
+	}
+	*/
+	
+	//for (int k = 0; k < 5; k++) {
+	for (int i = 100; i >= 0; i--) {
 		hashtab_add(node_arr, num_arr[i], 1);
 	}
+ 	return 0;
+ 	 double t;
 
-	printf("\n%p\n", hashtab_lookup(node_arr, "courte"));
-	printf("%p\n", hashtab_lookup(node_arr, "иллюминатство"));
-	printf("%p\n", hashtab_lookup(node_arr, "абвгдя"));
-	//for (int i = 0; i < num_in_tree; i++) {
-	//	hashtab_add(&node_arr, num_arr[i], 1);
+   	t = wtime();
+	listnode *list_test = hashtab_lookup(node_arr, "бега");   	
+	//bstree *list_test = bstree_lookup(test, "бродившими"); //
+	t = wtime() - t;
+	if (list_test != NULL) {
+		printf("Find ");
+	} else {
+		printf("Not find ");
+	}
+	
+	
+	
+	printf("Elapsed time: %.6f sec.\n", t);  
 	//}
 	
 	
