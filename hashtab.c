@@ -32,16 +32,16 @@ void hashtab_add(listnode **hashtab, char *key, int value)
 	}
 	unsigned int key_hash = hashtab_hash(key);
 	listnode *node = hashtab[key_hash];	
-	printf("%p\n", node);
 	do {
+		//printf("%p\n", node);
 		if(node->key == NULL) {
-			printf("c\n");
+			//printf("c\n");
 			node->key = calloc(strlen(key) + 1, sizeof(char));
 			strcpy(node->key, key);
 			return;
 		}
 		if (node->key != NULL && node->next == NULL) {
-			printf("cn\n");
+			//printf("cn\n");
 			node->next = calloc(1, sizeof(listnode));
 			node->next->key = calloc(strlen(key) + 1, sizeof(char));
 			strcpy(node->next->key, key);

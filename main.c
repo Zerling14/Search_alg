@@ -55,7 +55,7 @@ void free_rand_num(char *num_arr[], int num_in_tree)
 
 void load_words(char *num_arr[], int num_in_tree)
 {
-	FILE *in = fopen("word.txt", "r");
+	FILE *in = fopen("words.txt", "r");
 	char buf[256];
 	for (int i = 0; i < num_in_tree; i++) {
 			fscanf(in ,"%s[^\n]", buf);
@@ -133,16 +133,18 @@ int main()
 	listnode *node_arr[10];
 	hashtab_init(node_arr);
 	
-	//int max_element = 10; //or
-	//int num_in_tree = 100;
-	//char *num_arr[num_in_tree];
-	//load_rand_num(num_arr, num_in_tree, max_element);
-	hashtab_add(node_arr, "0", 1);
-	hashtab_add(node_arr, "1", 1);
-	hashtab_add(node_arr, "22", 1);
-	printf("\n%p\n", hashtab_lookup(node_arr, "0"));
-	printf("%p\n", hashtab_lookup(node_arr, "1"));
-	printf("%p\n", hashtab_lookup(node_arr, "22"));
+	
+	int num_in_tree = calc_num_word("word.txt");
+	char *num_arr[num_in_tree];
+	load_words(num_arr, num_in_tree);
+	
+	for (int i = (num_in_tree / 2) - 1; i >= 0; i--) {
+		hashtab_add(node_arr, num_arr[i], 1);
+	}
+
+	printf("\n%p\n", hashtab_lookup(node_arr, "courte"));
+	printf("%p\n", hashtab_lookup(node_arr, "иллюминатство"));
+	printf("%p\n", hashtab_lookup(node_arr, "абвгдя"));
 	//for (int i = 0; i < num_in_tree; i++) {
 	//	hashtab_add(&node_arr, num_arr[i], 1);
 	//}
