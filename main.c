@@ -139,7 +139,7 @@ int main()
 	setlocale(0, "");
 	srand(time(0));
 	
-	listnode *node_arr[128];
+	listnode *node_arr[10000];
 	hashtab_init(node_arr);
 	
 	
@@ -148,36 +148,33 @@ int main()
 	load_words(num_arr, num_in_tree);
 	
 	/*
-	heap_make(num_arr, num_in_tree);
+	 heap_make(num_arr, num_in_tree);
 	
-	bstree *test = bstree_create(num_arr[num_in_tree / 2], 1);
+	 bstree *test = bstree_create(num_arr[num_in_tree / 2], 1);
 	
-	for (int i = (num_in_tree / 2) - 1; i >= 0; i--) {
-		bstree_add(test, num_arr[i], 1);
-	}
-	for (int i = (num_in_tree / 2) + 1; i < num_in_tree; i++) {
-		bstree_add(test, num_arr[i], 1);
-	}
+	 for (int i = (num_in_tree / 2) - 1; i >= 0; i--) {
+		 bstree_add(test, num_arr[i], i);
+	 }
+	 for (int i = (num_in_tree / 2) + 1; i < num_in_tree; i++) {
+		 bstree_add(test, num_arr[i], i);
+	 }
 	*/
 	
 	//for (int k = 0; k < 5; k++) {
-	for (int i = 100; i >= 0; i--) {
-		hashtab_add(node_arr, num_arr[i], 1);
+	
+	for (int i = 50000 ; i >= 0; i--) {
+		hashtab_add(node_arr, num_arr[i], i);
 	}
- 	return 0;
- 	 double t;
-
+ 	double t;
    	t = wtime();
-	listnode *list_test = hashtab_lookup(node_arr, "бега");   	
-	//bstree *list_test = bstree_lookup(test, "бродившими"); //
+	listnode *list_test = hashtab_lookup(node_arr, "гачи");   	
+	//bstree *list_test = bstree_lookup(test, "гачи"); //
 	t = wtime() - t;
 	if (list_test != NULL) {
-		printf("Find ");
+		printf("Find %d ", list_test->value);
 	} else {
 		printf("Not find ");
 	}
-	
-	
 	
 	printf("Elapsed time: %.6f sec.\n", t);  
 	//}
@@ -185,11 +182,3 @@ int main()
 	
 	return 0;
 }
-
-
-
-
-
-
-
-

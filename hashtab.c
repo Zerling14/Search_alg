@@ -18,7 +18,7 @@ unsigned int hash_hash(char *s)
 	for (p = s; *p != '\0'; p++) {
 		h = h * HASH_MUL + (unsigned int)*p;
 	}
-	return h % HASH_SIZE;
+	return h % 10000;
 }
 
 void hashtab_init(listnode **hashtab)
@@ -28,7 +28,7 @@ void hashtab_init(listnode **hashtab)
 		return;
 	}
 	//*hashtab = calloc(10, sizeof(listnode*));
-	for (int i = 0; i < 128; i++) {
+	for (int i = 0; i < 10000; i++) {
 		hashtab[i] = calloc(1, sizeof(listnode));
 	}
 	return;
@@ -44,7 +44,7 @@ void hashtab_add(listnode **hashtab, char *key, int value)
 		printf("hashtab_add error key pointer is NULL\n");
 		return;
 	}
-	unsigned int key_hash = hash_hash(key) % 128;
+	unsigned int key_hash = hash_hash(key) % 10000;
 	//printf("\n%u\n", key_hash);
 	listnode *node = hashtab[key_hash];	
 	//printf("\n%u\n", key_hash);
@@ -53,6 +53,7 @@ void hashtab_add(listnode **hashtab, char *key, int value)
 		if(node->key == NULL) {
 			//printf("c\n");
 			node->key = calloc(strlen(key) + 1, sizeof(char));
+			node->value = value;
 			strcpy(node->key, key);
 			//printf("dgdf\n");
 			return;
@@ -61,6 +62,7 @@ void hashtab_add(listnode **hashtab, char *key, int value)
 			//printf("cn\n");
 			node->next = calloc(1, sizeof(listnode));
 			node->next->key = calloc(strlen(key) + 1, sizeof(char));
+			node->next->value = value;
 			strcpy(node->next->key, key);
 			return;
 		}
@@ -80,13 +82,14 @@ listnode *hashtab_lookup(listnode **hashtab, char *key)
 		printf("hashtab_lookup error key pointer is NULL\n");
 		return NULL;
 	}
-	unsigned int key_hash = hash_hash(key);
+	unsigned int key_hash = hash_hash(key) % 10000;
 	listnode *node = hashtab[key_hash];
 	if (node->key != NULL && strcmp(node->key, key) == 0) {
 		return node;
 	}
 	while (node->next != NULL) {
 		node = node->next;
+		//printf("%u\n", key_hash);
 		if (strcmp(node->key, key) == 0) {
 			return node;
 		}
@@ -98,8 +101,3 @@ void hashtab_delete(listnode **hashtab, char *key)
 {
 
 }
-
-
-
-
-
