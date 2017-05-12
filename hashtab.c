@@ -13,12 +13,20 @@ unsigned int hashtab_hash(char *key)
 
 unsigned int hash_hash(char *s) 
 {
+	//return KPHash(s);
+	return ELFHash(s);
+	
+}
+
+unsigned int KPHash(char *s) 
+{
 	int h = 0;
 	char *p;
 	for (p = s; *p != '\0'; p++) {
 		h = h * HASH_MUL + (unsigned int)*p;
 	}
-	return h % 10000;
+	return h;
+	
 }
 
 unsigned int ELFHash(char *key)
@@ -48,6 +56,12 @@ void hashtab_init(listnode **hashtab)
 	return;
 }
 
+int collision = 0;
+
+int get_num_collision()
+{
+	return collision;
+}
 void hashtab_add(listnode **hashtab, char *key, int value)
 {
 	if (hashtab == NULL) {
@@ -74,16 +88,17 @@ void hashtab_add(listnode **hashtab, char *key, int value)
 		}
 		if (node->key != NULL && node->next == NULL) {
 			//printf("cn\n");
+			collision++;
 			node->next = calloc(1, sizeof(listnode));
 			node->next->key = calloc(strlen(key) + 1, sizeof(char));
 			node->next->value = value;
 			strcpy(node->next->key, key);
 			return;
 		}
-			node = node->next;
+		node = node->next;
+		
 	}
 	while (node != NULL);
-
 }
 
 listnode *hashtab_lookup(listnode **hashtab, char *key)

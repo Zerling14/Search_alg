@@ -162,7 +162,7 @@ int main()
 	
 	//for (int k = 0; k < 5; k++) {
 	
-	for (int i = 50000 ; i >= 0; i--) {
+	for (int i = 10000 * (k + 1) ; i >= 0; i--) {
 		hashtab_add(node_arr, num_arr[i], i);
 	}
  	double t;
@@ -176,8 +176,10 @@ int main()
 		printf("Not find ");
 	}
 	
-	printf("Elapsed time: %.6f sec.\n", t);  
-	//}
+	printf("Elapsed time: %.9f sec.\n", t);  
+
+	printf("Collision num: %d\n", get_num_collision());  
+	//s}
 	
 	
 	return 0;

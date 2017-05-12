@@ -19,6 +19,9 @@ void hashtab_delete(listnode **hashtab, char *key);
 
 unsigned int hash_hash(char *s);
 
+int get_num_collision();
+
+unsigned int KPHash(char *s);
 
 unsigned int ELFHash(char *s);
 #endif
