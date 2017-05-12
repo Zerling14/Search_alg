@@ -19,4 +19,6 @@ void hashtab_delete(listnode **hashtab, char *key);
 
 unsigned int hash_hash(char *s);
 
+
+unsigned int ELFHash(char *s);
 #endif

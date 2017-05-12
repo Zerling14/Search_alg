@@ -21,6 +21,20 @@ unsigned int hash_hash(char *s)
 	return h % 10000;
 }
 
+unsigned int ELFHash(char *key)
+{
+	unsigned int h = 0, g;
+	while (*key) {
+		h = (h << 4) + *key++;
+		g = h & 0xf0000000L;
+		if (g) {
+			h ^= g >> 24;
+		}
+		h &= ~g;
+	}
+	return h;
+}
+
 void hashtab_init(listnode **hashtab)
 {
 	if (hashtab == NULL) {
